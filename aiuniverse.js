@@ -6,7 +6,7 @@ const loadAi = () => {
 }
 // Show All Data on UI
 const showData = showAiData => {
-    console.log(showAiData);
+    // console.log(showAiData);
     showAiData.data.tools.map(tool =>{
         // console.log(parseint(tool.id));
     const getCard = document.getElementById("aiCard");
@@ -69,37 +69,48 @@ const showModal = (id) => {
 
 // Show All data on modal
 const loadModalData = modalData =>{
-    console.log(modalData);
+    console.log(modalData.data.features[2]);
     const modalBody = document.getElementById("modalBody");
+    modalBody.innerHTML = " ";
     const modalDiv = document.createElement('div');
-    modalDiv.classList.add("col");
     modalDiv.innerHTML= `
-        <div class="d-flex">
-            <div>
-                <h1></h1>
-                <div>
-                    <div class="subscription"></div>
-                    <div class="subscription"></div>
-                    <div class="subscription"></div>
+        <div class="d-flex row row-cols-1 row-cols-md-3 g-4">
+            <div class="col modalDescription w-50">
+                <h1>${modalData.data.description}</h1>
+                <div class="d-flex justify-content-around">
+                    <div class="subscription">
+                        <h5>${modalData.data.pricing[0].price}</h5>
+                        <h5>${modalData.data.pricing[0].plan}</h5>
+                    </div>
+                    <div class="subscription">
+                        <h5>${modalData.data.pricing[1].price}</h5>
+                        <h5>${modalData.data.pricing[1].plan}</h5>
+                    </div>
+                    <div class="subscription">
+                        <h5>${modalData.data.pricing[2].price}</h5>
+                        <h5>${modalData.data.pricing[2].plan}</h5>
+                    </div>
                 </div>
-                <div>
+                <div class="d-flex justify-content-around mt-5">
                     <div>
-                        <h1></h1>
+                        <h1>Features</h1>
                         <ul>
-                        <li></li>
+                        <li>${modalData.data.features[2].feature_name}</li>
+                        <li>${modalData.data.features[2].feature_name}</li>
+                        <li>${modalData.data.features[3].feature_name}</li>
                         </ul>
                     </div>
 
                     <div>
-                        <h1> </h1>
+                        <h1>Integrations</h1>
                         <ul>
                         <li></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div>
-
+            <div class="col w-50">
+            <img src="${modalData.data.image_link[0]}" class="card-img-top h-100 w-100" alt="...">
             </div>
         </div>
         `;
