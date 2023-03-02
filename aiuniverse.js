@@ -1,11 +1,14 @@
+// Load API
 const loadAi = () => {
     fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(res => res.json())
     .then(data => showData(data));
 }
+// Show All Data on UI
 const showData = showAiData => {
-    // console.log(tool.id);
+    console.log(showAiData);
     showAiData.data.tools.map(tool =>{
+        // console.log(parseint(tool.id));
     const getCard = document.getElementById("aiCard");
         const div = document.createElement('div');
         div.classList.add("col");
@@ -46,5 +49,60 @@ const showData = showAiData => {
 
     });   
 }
+// Function For Modal
+const showModal = (id) => {
+    if(id<=9){
+        const url = `https://openapi.programming-hero.com/api/ai/tool/0${id}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => loadModalData(data));
+    }
+    else{
+        const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => loadModalData(data));
+    }
 
+
+}
+
+// Show All data on modal
+const loadModalData = modalData =>{
+    console.log(modalData);
+    const modalBody = document.getElementById("modalBody");
+    const modalDiv = document.createElement('div');
+    modalDiv.classList.add("col");
+    modalDiv.innerHTML= `
+        <div class="d-flex">
+            <div>
+                <h1></h1>
+                <div>
+                    <div class="subscription"></div>
+                    <div class="subscription"></div>
+                    <div class="subscription"></div>
+                </div>
+                <div>
+                    <div>
+                        <h1></h1>
+                        <ul>
+                        <li></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h1> </h1>
+                        <ul>
+                        <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        `;
+        modalBody.appendChild(modalDiv);
+}
 loadAi();
