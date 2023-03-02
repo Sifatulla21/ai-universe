@@ -1,0 +1,32 @@
+.headAndSort{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 30px;
+}
+.sortButton{
+    width: 180px;
+    height: 72px;
+    top: 135px;
+    background: #EB5757;
+    border-radius: 16px;
+    margin-top: 32px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #FFFFFF;
+
+}
+.arrowButton{
+    width: 50px;
+    height: 50px;
+    border:transparent;
+    border-radius: 50%;
+    background-color: #e6d2d2;
+}
+#modalCloseButton{   
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: red;
+}
