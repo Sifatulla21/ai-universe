@@ -7,7 +7,7 @@ const loadAi = () => {
 // Show All Data on UI
 const showData = showAiData => {
     // console.log(showAiData);
-    showAiData.data.tools.map(tool =>{
+    showAiData.data.tools.forEach(tool =>{
         // console.log(parseint(tool.id));
     const getCard = document.getElementById("aiCard");
         const div = document.createElement('div');
@@ -39,7 +39,7 @@ const showData = showAiData => {
             }</p>
         </div>
         <div>
-            <button class="arrowButton"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="showModal(${tool.id})"><i class="fa-solid fa-arrow-right"></i></button>
+            <button class="arrowButton"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="showModal('${tool.id}')"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
         </div>
@@ -51,69 +51,60 @@ const showData = showAiData => {
 }
 // Function For Modal
 const showModal = (id) => {
-    if(id<=9){
-        const url = `https://openapi.programming-hero.com/api/ai/tool/0${id}`;
-        fetch(url)
-        .then(res => res.json())
-        .then(data => loadModalData(data));
-    }
-    else{
         const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
         fetch(url)
         .then(res => res.json())
-        .then(data => loadModalData(data));
-    }
-
-
+        .then(data => loadModalData(data.data));
 }
 
 // Show All data on modal
 const loadModalData = modalData =>{
-    console.log(modalData.data.features[2]);
-    const modalBody = document.getElementById("modalBody");
-    modalBody.innerHTML = " ";
-    const modalDiv = document.createElement('div');
-    modalDiv.innerHTML= `
-        <div class="d-flex row row-cols-1 row-cols-md-3 g-4">
-            <div class="col modalDescription w-50">
-                <h1>${modalData.data.description}</h1>
-                <div class="d-flex justify-content-around">
-                    <div class="subscription">
-                        <h5>${modalData.data.pricing[0].price}</h5>
-                        <h5>${modalData.data.pricing[0].plan}</h5>
-                    </div>
-                    <div class="subscription">
-                        <h5>${modalData.data.pricing[1].price}</h5>
-                        <h5>${modalData.data.pricing[1].plan}</h5>
-                    </div>
-                    <div class="subscription">
-                        <h5>${modalData.data.pricing[2].price}</h5>
-                        <h5>${modalData.data.pricing[2].plan}</h5>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-around mt-5">
-                    <div>
-                        <h1>Features</h1>
-                        <ul>
-                        <li>${modalData.data.features[2].feature_name}</li>
-                        <li>${modalData.data.features[2].feature_name}</li>
-                        <li>${modalData.data.features[3].feature_name}</li>
-                        </ul>
-                    </div>
+    // Modal Heading
+    const modalHead = document.getElementById("modalHead");
+    modalHead.innerText = modalData.tool_name;
 
-                    <div>
-                        <h1>Integrations</h1>
-                        <ul>
-                        <li></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col w-50">
-            <img src="${modalData.data.image_link[0]}" class="card-img-top h-100 w-100" alt="...">
-            </div>
+    // Modal Subscription Part Start
+    if(modalData.pricing === null){
+        const modalSubscription = document.getElementById("subscription");
+        modalSubscription.innerHTML = " ";
+        const modalSubscriptionDiv = document.createElement('div');
+        modalSubscriptionDiv.innerHTML=`
+        <div class="subscription">
+        <h5>Free Of Cost</h5>
+        <h5>All Plans</h5>
         </div>
-        `;
-        modalBody.appendChild(modalDiv);
-}
+    `;
+    modalSubscription.appendChild(modalSubscriptionDiv);
+    }
+    else{
+        const modalSubscription = document.getElementById("subscription");
+        modalSubscription.innerHTML = " ";
+        // console.log(modalData.pricing);
+        modalData.pricing.forEach(values => {
+            const modalSubscriptionDiv = document.createElement('div');
+            modalSubscriptionDiv.innerHTML=`
+            <div class="subscription">
+            <h5>${values.price}</h5>
+            <h5>${values.plan}</h5>
+            </div>
+            `;
+            modalSubscription.appendChild(modalSubscriptionDiv);
+    });
+    }
+    // Modal Subscription Part End
+
+    // Modal Features Part Start
+        const modalFeatures = document.getElementById("modalFeaturesLi");
+        modalFeatures.innerHTML = " ";
+        // console.log(typeof(modalData.features));
+    modalData.features.forEach(feature => {
+        // console.log(typeof(feature));
+            const modalFeaturesLi = document.createElement('li');
+            modalFeaturesLi.innerHTML=`
+            <li>${feature.feature_name}</li>
+            `;
+            modalFeatures.appendChild(modalFeaturesLi);
+    });
+    }
+    // Modal Features Part End
 loadAi();
