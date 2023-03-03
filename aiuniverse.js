@@ -4,9 +4,125 @@ const loadAi = () => {
     .then(res => res.json())
     .then(data => showData(data));
 }
+
 // Show All Data on UI
 const showData = showAiData => {
-    // Show All Button Show
+    // Sort button start
+    document.getElementById("sortButton").addEventListener('click',function(){
+        const aiCardRemove = document.getElementById("aiCardRemove");
+        const aiCardAreaRemove = document.getElementById("aiCardAreaRemove");
+        const sortButtonRemove = document.getElementById("sortButton");
+        const showButtonRemove = document.getElementById("showAllSort");
+        aiCardRemove.classList.remove("d-block");
+        aiCardRemove.classList.add("d-none");
+        const aiCardArea = document.getElementById("aiCardArea");
+        // sort all data by date
+        showAiData.data.tools.forEach(tool =>{
+            tool.published_in = new Date(tool.published_in);
+        });
+        showAiData.data.tools.sort((a, b) => a.published_in - b.published_in);
+        //   show six sorted data and  Show all button when click sort button
+          if(showAiData.data.tools.length > 6){
+              showAiData.data.tools.slice(0,6).forEach(tool =>{
+                aiCardAreaRemove.classList.remove("d-none");
+                aiCardAreaRemove.classList.add("d-block");
+                sortButtonRemove.classList.remove("d-block");
+                sortButtonRemove.classList.add("d-none");
+                showButtonRemove.classList.remove("d-none");
+                showButtonRemove.classList.add("d-block");
+                const div = document.createElement('div');
+                div.classList.add("col");
+                div.innerHTML=`
+                <div class="card h-100">
+                <img src="${tool.image}" class="card-img-top h-100" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Features</h5>
+                  <div class="card-text">
+                    <ol>
+                    <p>
+                    ${tool.features[0]  ? `<li>${tool.features[0]}</li>` : `<br>`}
+                    </p>
+                    <p>
+                    ${tool.features[1]  ? `<li>${tool.features[1]}</li>` : `<br>`}
+                    </p>
+                    <p>
+                    ${tool.features[2]  ? `<li>${tool.features[2]}</li>` : `<br>`}
+                    </p>
+                    <p>
+                    ${tool.features[3]  ? `<li>${tool.features[3]}</li>` : `<br>`}
+                    </p>
+                    </ol>
+                  </div>
+                </div>
+                <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                <div>
+                    <h3>${tool.name}</h3>
+                    <p><i class="fa-solid fa-calendar-days"></i>${tool.published_in}</p>
+                </div>
+                <div>
+                    <button class="arrowButton"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="showModal('${tool.id}')"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+                </div>
+              </div>
+                `;
+                aiCardArea.appendChild(div);
+            });
+          }
+        //   show all data and hide Show all button when click show all button
+          document.getElementById("showAllSort").addEventListener('click', function(){
+            showAiData.data.tools.slice(6,showAiData.data.tools.length).forEach(tool =>{
+                const showButtonRemove = document.getElementById("showAllSort");
+                showButtonRemove.classList.remove("d-block");
+                showButtonRemove.classList.add("d-none");
+                const aiCardArea = document.getElementById("aiCardArea");
+                const div = document.createElement('div');
+                div.classList.add("col");
+                div.innerHTML = `
+                <div class="card h-100">
+                <img src="${tool.image}" class="card-img-top h-100" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Features</h5>
+                  <div class="card-text">
+                    <ol>
+                    <p>
+                    ${tool.features[0]  ? `<li>${tool.features[0]}</li>` : `<br>`}
+                    </p>
+                    <p>
+                    ${tool.features[1]  ? `<li>${tool.features[1]}</li>` : `<br>`}
+                    </p>
+                    <p>
+                    ${tool.features[2]  ? `<li>${tool.features[2]}</li>` : `<br>`}
+                    </p>
+                    <p>
+                    ${tool.features[3]  ? `<li>${tool.features[3]}</li>` : `<br>`}
+                    </p>
+                    </ol>
+                  </div>
+                </div>
+                <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                <div>
+                    <h3>${tool.name}</h3>
+                    <p><i class="fa-solid fa-calendar-days"></i> ${tool.published_in
+                    }</p>
+                </div>
+                <div>
+                    <button class="arrowButton"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="showModal('${tool.id}')"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+                </div>
+              </div>
+                `;
+                aiCardArea.appendChild(div);
+        
+            });   
+        });
+
+    });
+       
+    // Show All Button Show for regular data
     if(showAiData.data.tools.length > 6){
     showAiData.data.tools.slice(0,6).forEach(tool =>{
         const showButton = document.getElementById("showAll");
@@ -55,7 +171,7 @@ const showData = showAiData => {
     });   
 }
 
-// Show All Button Hide
+// Show All Button Hide and show all regular data
 document.getElementById("showAll").addEventListener('click', function(){
         showAiData.data.tools.slice(6,showAiData.data.tools.length).forEach(tool =>{
             const showButton = document.getElementById("showAll");
@@ -186,7 +302,6 @@ const loadModalData = modalData =>{
 
 // Modal Example Part Start
         // Modal Example Image
-        console.log(modalData.accuracy);
          const modalExample = document.getElementById("modalExample");
          modalExample.innerHTML = " ";
          const modalExampleImg = document.createElement('div');

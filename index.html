@@ -16,17 +16,25 @@
 <body>
     <div class="headAndSort">
         <h1 class="aiHead">AI Universe Hub</h1>
-        <button class="sortButton">Sort By Date</button>
+        <button id="sortButton" class="sortButton d-block">Sort By Date</button>
     </div>
-    <div id="cardArea">
+    <div id="cardArea" class="container">
+      <div  id="aiCardAreaRemove" class=" d-none">
+
+        <div id="aiCardArea" class="row row-cols-1 row-cols-md-3 g-4">
+        </div>
+        <div class="container showAll d-flex justify-content-end mt-5 mb-5">
+          <button id="showAllSort" class="showButton d-none">Show All</button>
+        </div>
+      </div>
       <!-- Cards -->
-      <div class="container pt-5">       
+      <div id="aiCardRemove" class="container pt-5 d-block">       
             <div id="aiCard" class="row row-cols-1 row-cols-md-3 g-4">
             </div>
             
-      </div>
-      <div class="container showAll d-flex justify-content-end mt-5 mb-5">
-        <button id="showAll" class="showButton d-none">Show All</button>
+            <div class="container showAll d-flex justify-content-end mt-5 mb-5">
+              <button id="showAll" class="showButton d-none">Show All</button>
+            </div>
       </div>
 
     </div>
