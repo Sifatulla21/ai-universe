@@ -6,8 +6,6 @@ const loadAi = () => {
 }
 // Show All Data on UI
 const showData = showAiData => {
-    // const showAiData = showAiData.data.tools.slice(0,3);
-    console.log(showAiData.data.tools.length);
     // Show All Button Show
     if(showAiData.data.tools.length > 6){
     showAiData.data.tools.slice(0,6).forEach(tool =>{
@@ -57,6 +55,7 @@ const showData = showAiData => {
     });   
 }
 
+// Show All Button Hide
 document.getElementById("showAll").addEventListener('click', function(){
         showAiData.data.tools.slice(6,showAiData.data.tools.length).forEach(tool =>{
             const showButton = document.getElementById("showAll");
@@ -187,12 +186,14 @@ const loadModalData = modalData =>{
 
 // Modal Example Part Start
         // Modal Example Image
+        console.log(modalData.accuracy);
          const modalExample = document.getElementById("modalExample");
          modalExample.innerHTML = " ";
          const modalExampleImg = document.createElement('div');
          modalExampleImg.classList.add("ms-5");
          modalExampleImg.innerHTML= `
          <img src="${modalData.image_link[0]}" class="card-img-top h-75 w-75" alt="...">
+          <span class="position-absolute top-10 end-10 translate-middle badge rounded-pill bg-danger">${modalData.accuracy.score ? `${modalData.accuracy.score}% Accuracy` : ` `}</span>
          `;
          modalExample.appendChild(modalExampleImg);
 
