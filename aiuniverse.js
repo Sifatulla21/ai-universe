@@ -15,19 +15,22 @@ const showData = showAiData => {
         <img src="${tool.image}" class="card-img-top h-100" alt="...">
         <div class="card-body">
           <h5 class="card-title">Features</h5>
-          <p class="card-text">
-          <ul>
-            <li>
-            ${tool.features[0]}
-            </li>
-            <li>
-            ${tool.features[1]}
-            </li>
-            <li>
-            ${tool.features[2]}
-            </li>
-          </ul>
-          </p>
+          <div class="card-text">
+            <ol>
+            <p>
+            ${tool.features[0]  ? `<li>${tool.features[0]}</li>` : `<br>`}
+            </p>
+            <p>
+            ${tool.features[1]  ? `<li>${tool.features[1]}</li>` : `<br>`}
+            </p>
+            <p>
+            ${tool.features[2]  ? `<li>${tool.features[2]}</li>` : `<br>`}
+            </p>
+            <p>
+            ${tool.features[3]  ? `<li>${tool.features[3]}</li>` : `<br>`}
+            </p>
+            </ol>
+          </div>
         </div>
         <div class="card-footer">
         <div class="d-flex justify-content-between">
@@ -127,7 +130,6 @@ const loadModalData = modalData =>{
 
 // Modal Example Part Start
         // Modal Example Image
-        console.log(modalData.input_output_examples);
          const modalExample = document.getElementById("modalExample");
          modalExample.innerHTML = " ";
          const modalExampleImg = document.createElement('div');
