@@ -6,8 +6,14 @@ const loadAi = () => {
 }
 // Show All Data on UI
 const showData = showAiData => {
-    showAiData.data.tools.forEach(tool =>{
-    const getCard = document.getElementById("aiCard");
+    // const showAiData = showAiData.data.tools.slice(0,3);
+    console.log(showAiData.data.tools.length);
+    // Show All Button Show
+    if(showAiData.data.tools.length > 6){
+    showAiData.data.tools.slice(0,6).forEach(tool =>{
+        const showButton = document.getElementById("showAll");
+        showButton.classList.remove("d-none");
+         const getCard = document.getElementById("aiCard");
         const div = document.createElement('div');
         div.classList.add("col");
         div.innerHTML = `
@@ -50,7 +56,58 @@ const showData = showAiData => {
 
     });   
 }
-// Function For Modal
+
+document.getElementById("showAll").addEventListener('click', function(){
+        showAiData.data.tools.slice(6,showAiData.data.tools.length).forEach(tool =>{
+            const showButton = document.getElementById("showAll");
+            showButton.classList.add("d-none");
+             const getCard = document.getElementById("aiCard");
+            const div = document.createElement('div');
+            div.classList.add("col");
+            div.innerHTML = `
+            <div class="card h-100">
+            <img src="${tool.image}" class="card-img-top h-100" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Features</h5>
+              <div class="card-text">
+                <ol>
+                <p>
+                ${tool.features[0]  ? `<li>${tool.features[0]}</li>` : `<br>`}
+                </p>
+                <p>
+                ${tool.features[1]  ? `<li>${tool.features[1]}</li>` : `<br>`}
+                </p>
+                <p>
+                ${tool.features[2]  ? `<li>${tool.features[2]}</li>` : `<br>`}
+                </p>
+                <p>
+                ${tool.features[3]  ? `<li>${tool.features[3]}</li>` : `<br>`}
+                </p>
+                </ol>
+              </div>
+            </div>
+            <div class="card-footer">
+            <div class="d-flex justify-content-between">
+            <div>
+                <h3>${tool.name}</h3>
+                <p><i class="fa-solid fa-calendar-days"></i> ${tool.published_in
+                }</p>
+            </div>
+            <div>
+                <button class="arrowButton"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="showModal('${tool.id}')"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+            </div>
+          </div>
+            `;
+            getCard.appendChild(div);
+    
+        });   
+    })
+
+}
+
+//Function For Modal
 const showModal = (id) => {
         const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
         fetch(url)

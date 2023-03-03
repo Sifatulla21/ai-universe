@@ -18,12 +18,19 @@
         <h1 class="aiHead">AI Universe Hub</h1>
         <button class="sortButton">Sort By Date</button>
     </div>
-    <!-- Cards -->
-    <div class="container pt-5">       
-          <div id="aiCard" class="row row-cols-1 row-cols-md-3 g-4">
-          </div>
-          
+    <div id="cardArea">
+      <!-- Cards -->
+      <div class="container pt-5">       
+            <div id="aiCard" class="row row-cols-1 row-cols-md-3 g-4">
+            </div>
+            
+      </div>
+      <div class="container showAll d-flex justify-content-end mt-5">
+        <button id="showAll" class="showButton d-none">Show All</button>
+      </div>
+
     </div>
+
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
