@@ -304,13 +304,24 @@ const loadModalData = modalData =>{
         // Modal Example Image
          const modalExample = document.getElementById("modalExample");
          modalExample.innerHTML = " ";
-         const modalExampleImg = document.createElement('div');
-         modalExampleImg.classList.add("ms-5");
-         modalExampleImg.innerHTML= `
-         <img src="${modalData.image_link[0]}" class="card-img-top h-75 w-75" alt="...">
-          <span class="position-absolute top-10 end-10 translate-middle badge rounded-pill bg-danger">${modalData.accuracy.score ? `${modalData.accuracy.score}% Accuracy` : ` `}</span>
-         `;
-         modalExample.appendChild(modalExampleImg);
+         if(modalData.accuracy.score !== null){
+
+             const modalExampleImg = document.createElement('div');
+             modalExampleImg.classList.add("ms-5");
+             modalExampleImg.innerHTML= `
+             <img src="${modalData.image_link[0]}" class="card-img-top h-75 w-75" alt="...">
+              <span class="position-absolute top-10 end-10 translate-middle badge rounded-pill bg-danger">${modalData.accuracy.score}% Accuracy</span>
+             `;
+             modalExample.appendChild(modalExampleImg);
+         }
+         else{
+            const modalExampleImg = document.createElement('div');
+            modalExampleImg.classList.add("ms-5");
+            modalExampleImg.innerHTML= `
+            <img src="${modalData.image_link[0]}" class="card-img-top h-75 w-75" alt="...">
+            `;
+            modalExample.appendChild(modalExampleImg);
+         }
 
         //  Example Modal Example Data
 
