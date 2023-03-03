@@ -18,6 +18,15 @@
         <h1 class="aiHead">AI Universe Hub</h1>
         <button id="sortButton" class="sortButton d-block">Sort By Date</button>
     </div>
+    <!-- Spinner -->
+    <div id="toggleLoader" class="d-none">
+      <div style="height: 150px;" class="d-flex justify-content-center align-items-center">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+    </div>
     <div id="cardArea" class="container">
       <div  id="aiCardAreaRemove" class=" d-none">
 
@@ -38,6 +47,7 @@
       </div>
 
     </div>
+
 
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

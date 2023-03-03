@@ -9,12 +9,14 @@ const loadAi = () => {
 const showData = showAiData => {
     // Sort button start
     document.getElementById("sortButton").addEventListener('click',function(){
+        toggleSpinner(true);
         const aiCardRemove = document.getElementById("aiCardRemove");
         const aiCardAreaRemove = document.getElementById("aiCardAreaRemove");
         const sortButtonRemove = document.getElementById("sortButton");
         const showButtonRemove = document.getElementById("showAllSort");
         aiCardRemove.classList.remove("d-block");
         aiCardRemove.classList.add("d-none");
+        showButtonRemove.classList.add("d-none");
         const aiCardArea = document.getElementById("aiCardArea");
         // sort all data by date
         showAiData.data.tools.forEach(tool =>{
@@ -69,9 +71,11 @@ const showData = showAiData => {
                 `;
                 aiCardArea.appendChild(div);
             });
+            toggleSpinner(false);
           }
         //   show all data and hide Show all button when click show all button
           document.getElementById("showAllSort").addEventListener('click', function(){
+            toggleSpinner(true);
             showAiData.data.tools.slice(6,showAiData.data.tools.length).forEach(tool =>{
                 const showButtonRemove = document.getElementById("showAllSort");
                 showButtonRemove.classList.remove("d-block");
@@ -117,13 +121,15 @@ const showData = showAiData => {
                 `;
                 aiCardArea.appendChild(div);
         
-            });   
+            });
+            toggleSpinner(false);   
         });
 
     });
        
     // Show All Button Show for regular data
     if(showAiData.data.tools.length > 6){
+        toggleSpinner(true);
     showAiData.data.tools.slice(0,6).forEach(tool =>{
         const showButton = document.getElementById("showAll");
         showButton.classList.remove("d-none");
@@ -169,10 +175,12 @@ const showData = showAiData => {
         getCard.appendChild(div);
 
     });   
+    toggleSpinner(false);
 }
 
 // Show All Button Hide and show all regular data
 document.getElementById("showAll").addEventListener('click', function(){
+    toggleSpinner(true);
         showAiData.data.tools.slice(6,showAiData.data.tools.length).forEach(tool =>{
             const showButton = document.getElementById("showAll");
             showButton.classList.add("d-none");
@@ -218,6 +226,7 @@ document.getElementById("showAll").addEventListener('click', function(){
             getCard.appendChild(div);
     
         });   
+        toggleSpinner(false);
     })
 
 }
@@ -347,10 +356,17 @@ const loadModalData = modalData =>{
 
 
 // Modal Example Part End
-
-
-
 }
 
+// Spinner
+const toggleSpinner = isLoading => {
+    const toggle = document.getElementById("toggleLoader");
+    if(isLoading){
+        toggle.classList.remove('d-none');
+    }
+    else{
+        toggle.classList.add('d-none');
+    }
+    }
 
 loadAi();
