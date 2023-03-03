@@ -79,7 +79,6 @@ const loadModalData = modalData =>{
     else{
         const modalSubscription = document.getElementById("subscription");
         modalSubscription.innerHTML = " ";
-        // console.log(modalData.pricing);
         modalData.pricing.forEach(values => {
             const modalSubscriptionDiv = document.createElement('div');
             modalSubscriptionDiv.innerHTML=`
@@ -96,12 +95,11 @@ const loadModalData = modalData =>{
     // Modal Features Part Start
         const modalFeatures = document.getElementById("modalFeaturesLi");
         modalFeatures.innerHTML = " ";
-        // console.log(typeof(modalData.features));
-    modalData.features.forEach(feature => {
-        // console.log(typeof(feature));
+        Object.entries(modalData.features).forEach(feature =>{
+            console.log(feature[1]);
             const modalFeaturesLi = document.createElement('li');
             modalFeaturesLi.innerHTML=`
-            <li>${feature.feature_name}</li>
+            <li>${feature[1].feature_name}</li>
             `;
             modalFeatures.appendChild(modalFeaturesLi);
     });
