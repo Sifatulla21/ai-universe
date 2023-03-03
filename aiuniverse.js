@@ -6,9 +6,7 @@ const loadAi = () => {
 }
 // Show All Data on UI
 const showData = showAiData => {
-    // console.log(showAiData);
     showAiData.data.tools.forEach(tool =>{
-        // console.log(parseint(tool.id));
     const getCard = document.getElementById("aiCard");
         const div = document.createElement('div');
         div.classList.add("col");
@@ -93,16 +91,49 @@ const loadModalData = modalData =>{
     // Modal Subscription Part End
 
     // Modal Features Part Start
-        const modalFeatures = document.getElementById("modalFeaturesLi");
+        const modalFeatures = document.getElementById("modalFeatures");
         modalFeatures.innerHTML = " ";
         Object.entries(modalData.features).forEach(feature =>{
-            console.log(feature[1]);
-            const modalFeaturesLi = document.createElement('li');
-            modalFeaturesLi.innerHTML=`
-            <li>${feature[1].feature_name}</li>
+            const modalFeaturesP = document.createElement('p');
+            modalFeaturesP.innerHTML=`
+            <p>${feature[0]}. ${feature[1].feature_name}</p>
             `;
-            modalFeatures.appendChild(modalFeaturesLi);
+            modalFeatures.appendChild(modalFeaturesP);
     });
-    }
     // Modal Features Part End
+
+
+    // Modal Integrations Part Start
+    if(modalData.integrations === null){
+        const modalIntegrations = document.getElementById("modalIntegrations");
+        modalIntegrations.innerHTML=`
+        <p>No data Found</p>
+    `;
+    }
+    else{
+        const modalIntegrations = document.getElementById("modalIntegrations");
+        modalIntegrations.innerHTML = " ";
+        Object.entries(modalData.integrations).forEach(integration => {
+            console.log(integration[0]);
+            const modalIntegrationsLi = document.createElement('div');
+            modalIntegrationsLi.innerHTML=`
+            <p>${parseInt(integration[0])+1}. ${integration[1]}</p>
+            `;
+            modalIntegrations.appendChild(modalIntegrationsLi);
+    });
+}
+// Modal Integrations Part End
+
+
+
+// Modal Example Part Start
+
+
+// Modal Example Part End
+
+
+
+}
+
+
 loadAi();
