@@ -80,7 +80,7 @@ const loadModalData = modalData =>{
         modalData.pricing.forEach(values => {
             const modalSubscriptionDiv = document.createElement('div');
             modalSubscriptionDiv.innerHTML=`
-            <div class="subscription">
+            <div class="subscription col mt-5">
             <h5>${values.price}</h5>
             <h5>${values.plan}</h5>
             </div>
@@ -114,7 +114,6 @@ const loadModalData = modalData =>{
         const modalIntegrations = document.getElementById("modalIntegrations");
         modalIntegrations.innerHTML = " ";
         Object.entries(modalData.integrations).forEach(integration => {
-            console.log(integration[0]);
             const modalIntegrationsLi = document.createElement('div');
             modalIntegrationsLi.innerHTML=`
             <p>${parseInt(integration[0])+1}. ${integration[1]}</p>
@@ -127,6 +126,38 @@ const loadModalData = modalData =>{
 
 
 // Modal Example Part Start
+        // Modal Example Image
+        console.log(modalData.input_output_examples);
+         const modalExample = document.getElementById("modalExample");
+         modalExample.innerHTML = " ";
+         const modalExampleImg = document.createElement('div');
+         modalExampleImg.classList.add("ms-5");
+         modalExampleImg.innerHTML= `
+         <img src="${modalData.image_link[0]}" class="card-img-top h-75 w-75" alt="...">
+         `;
+         modalExample.appendChild(modalExampleImg);
+
+        //  Example Modal Example Data
+
+        if(modalData.input_output_examples === null){
+        const modalExampleData = document.createElement('div');
+         modalExampleData.classList.add("m-5");
+         modalExampleData.innerHTML= `
+         <h3>Can you give any example?</h3>
+         <p>No! Not Yet! Take a break!!!</p>
+        `;
+        modalExample.appendChild(modalExampleData);
+        }
+
+        else{
+         const modalExampleData = document.createElement('div');
+         modalExampleData.classList.add("m-5");
+         modalExampleData.innerHTML= `
+         <h3>${modalData.input_output_examples[0].input}</h3>
+         <p>${modalData.input_output_examples[0].output}</p>
+         `;
+         modalExample.appendChild(modalExampleData);
+        }
 
 
 // Modal Example Part End
